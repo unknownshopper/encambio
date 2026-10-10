@@ -1,0 +1,542 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Propuesta — Plataforma En Cambio Diario 2030</title>
+<meta name="description" content="Propuesta de modernización para En Cambio Diario: plataforma de noticias propia, publicación móvil, transmisiones en vivo y distribución automática a redes. Por OLMECA CODE.">
+<meta name="author" content="OLMECA CODE">
+<meta name="theme-color" content="#c8102e">
+<!-- Open Graph (WhatsApp / Facebook / LinkedIn) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="OLMECA CODE">
+<meta property="og:title" content="OLMECA CODE — Propuesta de modernización para En Cambio Diario">
+<meta property="og:description" content="De periódico digital a plataforma de noticias en tiempo real: código 100% propio, reporteros publicando desde el celular, transmisiones en vivo y distribución automática a redes.">
+<meta property="og:url" content="https://unknownshopper.github.io/encambio/">
+<meta property="og:image" content="https://unknownshopper.github.io/encambio/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="es_MX">
+<!-- Twitter / X -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="OLMECA CODE — Propuesta de modernización para En Cambio Diario">
+<meta name="twitter:description" content="Plataforma de noticias 100% propia: publicación móvil, en vivo y distribución automática.">
+<meta name="twitter:image" content="https://unknownshopper.github.io/encambio/og-image.png">
+<style>
+  :root{
+    --bg:#ffffff; --panel:#f7f8fa; --panel2:#eef1f5; --line:#e2e6ec;
+    --txt:#16181d; --mut:#5b6472; --acc:#c8102e; --acc2:#7a0c1d;
+    --bad:#d92d20; --warn:#b7791f; --good:#067a46;
+    --r:14px;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{background:var(--bg);color:var(--txt);font-family:"Segoe UI",system-ui,-apple-system,sans-serif;line-height:1.6}
+  .wrap{max-width:1100px;margin:0 auto;padding:0 24px}
+  section{padding:72px 0;border-bottom:1px solid var(--line)}
+  h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.12;letter-spacing:-.02em}
+  h2{font-size:clamp(1.5rem,3.4vw,2.2rem);letter-spacing:-.01em;margin-bottom:8px}
+  h3{font-size:1.05rem}
+  .sub{color:var(--mut);font-size:1.1rem;max-width:720px;margin-top:14px}
+  .kicker{color:var(--acc);font-weight:700;font-size:.78rem;letter-spacing:.18em;text-transform:uppercase;margin-bottom:14px}
+
+  /* HERO */
+  .hero{padding:96px 0 80px;background:radial-gradient(900px 500px at 80% -10%,rgba(200,16,46,.09),transparent 60%),radial-gradient(700px 400px at 10% 110%,rgba(122,12,29,.06),transparent 60%),#fdfdfd;border-bottom:1px solid var(--line)}
+  .hero .brand{display:flex;align-items:center;gap:12px;margin-bottom:34px;color:var(--mut);font-size:.85rem;letter-spacing:.12em;text-transform:uppercase}
+  .dot{width:10px;height:10px;border-radius:50%;background:var(--acc);box-shadow:0 0 14px var(--acc)}
+  .grad{background:linear-gradient(90deg,#d92d20,var(--acc2));-webkit-background-clip:text;background-clip:text;color:transparent}
+  h2{color:var(--acc)}
+  .pills{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+  .pill{border:1px solid var(--line);border-radius:99px;padding:7px 16px;font-size:.82rem;color:var(--mut);background:rgba(255,255,255,.02)}
+  .pill b{color:var(--txt)}
+
+  /* STATS */
+  .stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:16px;margin-top:40px}
+  .stat{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+  .stat .n{font-size:2rem;font-weight:800;letter-spacing:-.02em}
+  .stat .l{color:var(--mut);font-size:.85rem;margin-top:4px}
+  .stat.bad .n{color:var(--bad)} .stat.warn .n{color:var(--warn)} .stat.ok .n{color:var(--good)}
+
+  /* COMPARISON TABLE */
+  .table{display:grid;grid-template-columns:1.1fr 1fr 1fr;border:1px solid var(--line);border-radius:var(--r);overflow:hidden;margin-top:36px;font-size:.92rem}
+  .table>div{padding:16px 18px;border-bottom:1px solid var(--line)}
+  .table .h{background:var(--panel2);font-weight:700;font-size:.8rem;letter-spacing:.1em;text-transform:uppercase}
+  .table .h.now{color:var(--mut)} .table .h.next{color:var(--acc)}
+  .table .dim{background:var(--panel);font-weight:600;color:var(--txt)}
+  .table .now{color:var(--mut)}
+  .table .next{color:var(--txt)}
+  .table .next .tag{color:var(--acc);font-weight:700}
+  .table tr:last-child div{border-bottom:none}
+  .table>div:nth-last-child(-n+3){border-bottom:none}
+  .x::before{content:"✕ ";color:var(--bad);font-weight:700}
+  .v::before{content:"✓ ";color:var(--good);font-weight:700}
+  .w::before{content:"~ ";color:var(--warn);font-weight:700}
+  @media(max-width:760px){
+    .table{grid-template-columns:1fr}
+    .table .dim{border-top:2px solid var(--line)}
+  }
+
+  /* CARDS */
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:18px;margin-top:36px}
+  .card{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:26px;position:relative;overflow:hidden}
+  .card::before{content:"";position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--acc),var(--acc2));opacity:.9}
+  .card{box-shadow:0 1px 3px rgba(22,24,29,.06)}
+  .card .num{font-size:.75rem;color:var(--acc);font-weight:800;letter-spacing:.15em}
+  .card h3{margin:8px 0 8px}
+  .card p{color:var(--mut);font-size:.9rem}
+  .card ul{margin-top:12px;padding-left:0;list-style:none}
+  .card li{color:var(--txt);font-size:.86rem;padding:5px 0 5px 22px;position:relative}
+  .card li::before{content:"→";position:absolute;left:0;color:var(--acc)}
+
+  /* ARCH */
+  .flow{display:flex;flex-wrap:wrap;gap:12px;align-items:stretch;margin-top:36px}
+  .node{flex:1;min-width:150px;background:var(--panel2);border:1px solid var(--line);border-radius:12px;padding:16px;text-align:center}
+  .node b{display:block;font-size:.9rem}
+  .node span{color:var(--mut);font-size:.75rem}
+  .arrow{align-self:center;color:var(--acc);font-size:1.4rem;font-weight:700}
+  .stack-chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+  .chip{background:rgba(200,16,46,.06);border:1px solid rgba(200,16,46,.28);color:var(--acc);border-radius:8px;padding:5px 12px;font-size:.78rem;font-weight:600}
+  .chip.b{background:rgba(22,24,29,.05);border-color:rgba(22,24,29,.18);color:#3d4552}
+
+  /* TIMELINE */
+  .tl{margin-top:40px;position:relative;padding-left:34px}
+  .tl::before{content:"";position:absolute;left:10px;top:6px;bottom:6px;width:2px;background:linear-gradient(var(--acc),var(--acc2))}
+  .tl .it{position:relative;padding:0 0 30px}
+  .tl .it::before{content:"";position:absolute;left:-29px;top:5px;width:12px;height:12px;border-radius:50%;background:var(--bg);border:3px solid var(--acc)}
+  .tl .when{color:var(--acc);font-size:.75rem;font-weight:800;letter-spacing:.12em;text-transform:uppercase}
+  .tl .what{font-weight:700;margin:2px 0}
+  .tl p{color:var(--mut);font-size:.88rem}
+
+  /* KPI / CTA */
+  .kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:16px;margin-top:36px}
+  .kpi{border-left:3px solid var(--acc);padding:14px 18px;background:var(--panel)}
+  .kpi b{font-size:.95rem}
+  .kpi span{display:block;color:var(--mut);font-size:.82rem}
+  .cta{background:linear-gradient(135deg,rgba(200,16,46,.07),rgba(122,12,29,.05));border:1px solid var(--line);border-radius:var(--r);padding:44px;text-align:center}
+  .cta .steps{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:26px;text-align:left}
+  .cta .step{background:var(--bg);border:1px solid var(--line);border-radius:12px;padding:16px 20px;max-width:300px;font-size:.86rem;color:var(--mut);box-shadow:0 1px 3px rgba(22,24,29,.06)}
+  .cta .step b{display:block;color:var(--txt);margin-bottom:4px}
+  footer{padding:48px 0 36px;color:var(--mut);font-size:.8rem;text-align:center}
+  .logo{height:52px;width:auto;display:block}
+  .logo.sm{height:34px;margin:0 auto 12px}
+  .to{margin-top:18px;display:inline-block;border:1px solid var(--line);border-radius:12px;padding:12px 22px;background:var(--bg);font-size:.9rem;color:var(--mut);box-shadow:0 1px 3px rgba(22,24,29,.06)}
+  .to b{color:var(--txt)}
+  .brand-row{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:34px}
+  .note{background:rgba(255,194,75,.14);border:1px solid rgba(183,121,31,.3);border-radius:12px;padding:16px 20px;color:#8a6210;font-size:.88rem;margin-top:28px}
+
+  /* PRICING */
+  .prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:18px;margin-top:36px}
+  .price{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:28px;position:relative;box-shadow:0 1px 3px rgba(22,24,29,.06)}
+  .price.hl{border:2px solid var(--acc);background:var(--bg)}
+  .price.hl::after{content:"RECOMENDADO";position:absolute;top:-11px;right:18px;background:var(--acc);color:#fff;font-size:.62rem;font-weight:800;letter-spacing:.12em;padding:4px 10px;border-radius:99px}
+  .price .ph{font-size:.72rem;color:var(--acc);font-weight:800;letter-spacing:.15em;text-transform:uppercase}
+  .price .amt{font-size:1.9rem;font-weight:800;letter-spacing:-.02em;margin:8px 0 2px}
+  .price .amt small{font-size:.85rem;color:var(--mut);font-weight:600}
+  .price .per{font-size:.8rem;color:var(--mut)}
+  .price ul{list-style:none;margin-top:14px;padding:0}
+  .price li{font-size:.85rem;padding:5px 0 5px 22px;position:relative;color:var(--txt)}
+  .price li::before{content:"✓";position:absolute;left:0;color:var(--good);font-weight:700}
+  .terms{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:26px}
+  .term{border:1px dashed var(--line);border-radius:10px;padding:14px 18px;font-size:.84rem;color:var(--mut)}
+  .term b{color:var(--txt);display:block;margin-bottom:3px}
+
+  /* CASOS / RESPUESTAS */
+  .case{background:var(--panel);border:1px solid var(--line);border-radius:var(--r);padding:22px}
+  .case .org{font-weight:800;font-size:1rem}
+  .case .prod{color:var(--acc);font-size:.78rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase}
+  .case p{color:var(--mut);font-size:.85rem;margin-top:8px}
+  .case .res{margin-top:10px;font-size:.82rem;color:var(--good);font-weight:600}
+  .roi{background:rgba(6,122,70,.06);border:1px solid rgba(6,122,70,.28);border-radius:var(--r);padding:22px 26px;margin-top:28px;font-size:.92rem;color:var(--txt)}
+  .roi b{color:var(--good)}
+  .roi small{display:block;color:var(--mut);margin-top:8px;font-size:.78rem}
+  .stat,.card{background:var(--panel)}
+  .pill{background:var(--bg)}
+  .table{box-shadow:0 1px 3px rgba(22,24,29,.05)}
+  .tl .it::before{background:var(--bg)} 
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="wrap">
+    <div class="brand-row">
+      <div class="brand" style="margin-bottom:0"><span class="dot"></span> Propuesta de modernización · Octubre 2026</div>
+      <img src="logo-olmeca.png" alt="OLMECA CODE" class="logo">
+    </div>
+    <div class="to">Dirigido a <b>José Antenor Ancona</b> · Director General, En Cambio Diario <span style="color:var(--acc);font-weight:800;margin-left:10px">· CONFIDENCIAL</span></div>
+    <h1>De periódico digital a<br><span class="grad">plataforma de noticias en tiempo real</span></h1>
+    <p class="sub">encambiodiario.mx hoy opera sobre WordPress y plugins de terceros. Proponemos construir una plataforma 100% propia: más rápida, con publicación desde celular, transmisiones en vivo y distribución automática a redes sociales — sin depender de nadie.</p>
+    <div class="pills">
+      <span class="pill">Código <b>100% propio</b></span>
+      <span class="pill">Reporteros <b>publicando desde el celular</b></span>
+      <span class="pill">Transmisiones <b>en vivo integradas</b></span>
+      <span class="pill">Optimizada para <b>Google Discover</b></span>
+      <span class="pill">Cero licencias <b>de plugins</b></span>
+    </div>
+  </div>
+</header>
+
+<!-- DIAGNÓSTICO -->
+<section>
+  <div class="wrap">
+    <div class="kicker">01 — Dónde estamos</div>
+    <h2>Diagnóstico del sitio actual</h2>
+    <p class="sub">Auditoría técnica externa de encambiodiario.mx realizada el 10/oct/2026. La base no es mala — el problema es el techo que impone.</p>
+    <div class="stats">
+      <div class="stat ok"><div class="n">30,841</div><div class="l">artículos publicados desde 2019 — el activo real del medio</div></div>
+      <div class="stat ok"><div class="n">13,913</div><div class="l">archivos de medios que migrar a la nueva plataforma</div></div>
+      <div class="stat warn"><div class="n">~0.5s</div><div class="l">TTFB sin caché en CDN — cada visita golpea el servidor</div></div>
+      <div class="stat bad"><div class="n">19,628</div><div class="l">etiquetas infladas que diluyen el SEO (meta: &lt;500)</div></div>
+      <div class="stat bad"><div class="n">0</div><div class="l">publicación móvil nativa · canal YouTube · push · newsletter activa</div></div>
+      <div class="stat warn"><div class="n">100%</div><div class="l">dependencia de terceros: WP + JNews + Yoast + plugins</div></div>
+    </div>
+    <div class="note"><b>Hallazgo clave:</b> el sitio ya tiene Yoast News SEO y sitemap de Google News — la materia prima está. Pero el tema JNews es pesado, no hay caché en el edge, la distribución social es manual y no existe video en vivo propio. Las audiencias están en Discover, Reels y lives; el sitio solo espera que lleguen.</div>
+  </div>
+</section>
+
+<!-- COMPARATIVA -->
+<section>
+  <div class="wrap">
+    <div class="kicker">02 — La comparación</div>
+    <h2>Hoy con WordPress <span class="grad">vs.</span> Plataforma propia</h2>
+    <p class="sub">Misma redacción, mismos reporteros, mismas noticias. Lo que cambia es la velocidad, el control y el alcance.</p>
+
+    <div class="table">
+      <div class="h">Dimensión</div><div class="h now">Estado actual (WordPress)</div><div class="h next">Plataforma propia</div>
+
+      <div class="dim">Velocidad y rendimiento</div>
+      <div class="now"><span class="x"></span>HTML dinámico en cada visita; tema pesado; sin caché de página en Cloudflare</div>
+      <div class="next"><span class="v"></span><span class="tag">Páginas pre-renderizadas servidas desde el edge.</span> TTFB &lt;100ms, Core Web Vitals en verde por diseño</div>
+
+      <div class="dim">Publicación desde celular</div>
+      <div class="now"><span class="x"></span>wp-admin de escritorio; el reportero envía la nota por WhatsApp a un editor</div>
+      <div class="next"><span class="v"></span><span class="tag">PWA de redacción instalable:</span> foto/video desde cámara, borradores offline, envío a revisión con un toque</div>
+
+      <div class="dim">Transmisiones en vivo</div>
+      <div class="now"><span class="x"></span>Solo embeds de Reels de Instagram; sin canal YouTube enlazado</div>
+      <div class="next"><span class="v"></span><span class="tag">Streaming propio (RTMP→HLS)</span> + simulcast a YouTube/Facebook/TikTok; sello "EN VIVO" en Google</div>
+
+      <div class="dim">Distribución en redes</div>
+      <div class="now"><span class="x"></span>Manual: copiar link y publicar en cada red, si hay tiempo</div>
+      <div class="next"><span class="v"></span><span class="tag">Auto-posteo al publicar</span> a FB, X, TikTok y YouTube; cada reportero amplifica desde su cuenta conectada</div>
+
+      <div class="dim">SEO y Google News</div>
+      <div class="now"><span class="w"></span>Yoast básico; marca dividida QRoo/Tabasco; 19k tags inflados; sin schema de video</div>
+      <div class="next"><span class="v"></span><span class="tag">Schema NewsArticle/VideoObject/LiveBlogPosting</span>, taxonomía curada, sitemap de noticias propio, Publisher Center</div>
+
+      <div class="dim">Audiencia propia</div>
+      <div class="now"><span class="x"></span>Sin push, sin newsletter activa, sin canal de WhatsApp</div>
+      <div class="next"><span class="v"></span><span class="tag">Web Push propio + newsletter + canal WhatsApp</span> — tráfico que no depende del algoritmo de nadie</div>
+
+      <div class="dim">Búsqueda interna</div>
+      <div class="now"><span class="w"></span>Búsqueda SQL de WordPress: lenta y sin tolerancia a errores</div>
+      <div class="next"><span class="v"></span><span class="tag">Meilisearch:</span> resultados instantáneos, tolerante a typos, por edición (QRoo/Tabasco)</div>
+
+      <div class="dim">Dependencias y control</div>
+      <div class="now"><span class="x"></span>WordPress + JNews + Yoast + Site Kit + 6 plugins: el roadmap lo dicta el vendor</div>
+      <div class="next"><span class="v"></span><span class="tag">Código, datos y roadmap 100% propios.</span> Frameworks open source que controlamos, sin licencias</div>
+
+      <div class="dim">Autoridad de autor</div>
+      <div class="now"><span class="x"></span>Notas firmadas "Por En Cambio Diario" — sin páginas de autor completas</div>
+      <div class="next"><span class="v"></span><span class="tag">Reportero con perfil, bio y redes verificadas.</span> E-E-A-T real para Google y marca personal que amplifica</div>
+
+      <div class="dim">Monetización</div>
+      <div class="now"><span class="x"></span>Sin AdSense detectado; sin inventario en lives ni video</div>
+      <div class="next"><span class="v"></span><span class="tag">Slots de pauta propios</span> + preroll en lives + contenido patrocinado + archivo de video monetizable</div>
+    </div>
+  </div>
+</section>
+
+<!-- MÓDULOS -->
+<section>
+  <div class="wrap">
+    <div class="kicker">03 — Qué construimos</div>
+    <h2>Cinco módulos, una plataforma</h2>
+    <div class="grid">
+      <div class="card">
+        <div class="num">MÓDULO 1</div>
+        <h3>PWA de Reportero Móvil</h3>
+        <p>La noticia pasa del celular al sitio en menos de 2 minutos.</p>
+        <ul>
+          <li>Foto y video directo de cámara con compresión en cliente</li>
+          <li>Borradores offline — funciona con mala señal en cobertura</li>
+          <li>Flujo: reportero → revisión de editor → publicación</li>
+          <li>Geolocalización de la nota como señal de calidad</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="num">MÓDULO 2</div>
+        <h3>En Vivo propio</h3>
+        <p>Servidor de streaming propio (MediaMTX). Sin pagar plataformas.</p>
+        <ul>
+          <li>El reportero transmite desde Larix con clave RTMP efímera</li>
+          <li>Reproductor propio en el sitio + simulcast a YT/FB/TikTok</li>
+          <li>Al terminar: archivo automático con schema VideoObject</li>
+          <li>Clips verticales de 30–60s para Reels, TikTok y Shorts</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="num">MÓDULO 3</div>
+        <h3>Distribución automática</h3>
+        <p>Publicar una vez; aparecer en todas partes.</p>
+        <ul>
+          <li>Cola de distribución a Meta, X, TikTok y YouTube APIs</li>
+          <li>Cuentas del reportero conectadas por OAuth — efecto red</li>
+          <li>Web Push propio: alertas de última hora al navegador</li>
+          <li>Newsletter y canal de WhatsApp con resumen matutino</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="num">MÓDULO 4</div>
+        <h3>SEO de nueva generación</h3>
+        <p>Diseñado para Google News y Discover, no adaptado después.</p>
+        <ul>
+          <li>Schema NewsArticle, LiveBlogPosting, BroadcastEvent</li>
+          <li>URLs idénticas a las actuales: cero pérdida de rankings</li>
+          <li>Páginas de autor completas (E-E-A-T)</li>
+          <li>Taxonomía curada: de 19,628 tags a menos de 500</li>
+        </ul>
+      </div>
+      <div class="card">
+        <div class="num">MÓDULO 5</div>
+        <h3>CMS editorial propio</h3>
+        <p>Editor moderno, sin wp-admin, sin plugins que romperse.</p>
+        <ul>
+          <li>Editor de texto TipTap con contenido en JSON limpio</li>
+          <li>Roles: reportero, editor, corresponsal, admin</li>
+          <li>Auth con passkeys; sesiones por dispositivo revocables</li>
+          <li>Analytics propio (Umami) sin cookies invasivas</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ARQUITECTURA -->
+<section>
+  <div class="wrap">
+    <div class="kicker">04 — Cómo funciona</div>
+    <h2>Flujo de una noticia en la nueva plataforma</h2>
+    <div class="flow">
+      <div class="node"><b>Reportero</b><span>PWA / celular<br>nota + foto + live</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>API editorial</b><span>workflow<br>revisión / publicación</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>Sitio</b><span>página pre-renderizada<br>en el CDN</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>Distribución</b><span>FB · X · TikTok · YT<br>push · WhatsApp</span></div>
+      <div class="arrow">→</div>
+      <div class="node"><b>Audiencia</b><span>Discover · redes<br>directo</span></div>
+    </div>
+    <div class="stack-chips">
+      <span class="chip">Astro</span><span class="chip">Fastify</span><span class="chip">PostgreSQL</span><span class="chip">Redis</span>
+      <span class="chip">Meilisearch</span><span class="chip">MediaMTX</span><span class="chip">TipTap</span><span class="chip">PWA</span>
+      <span class="chip b">Cloudflare CDN</span><span class="chip b">Web Push VAPID</span><span class="chip b">S3 + AVIF</span><span class="chip b">Umami</span>
+    </div>
+    <p class="sub" style="margin-top:18px">Se despliega sobre la infraestructura que el medio ya opera (servidor actual + Cloudflare gratuito). Si se requiere VPS dedicado: ≈ <b style="color:var(--acc)">$800–1,600 MXN/mes a nombre del medio</b>. Cero licencias de CMS, tema o plugins.</p>
+  </div>
+</section>
+
+<!-- ROADMAP -->
+<section>
+  <div class="wrap">
+    <div class="kicker">05 — Cómo llegamos</div>
+    <h2>Roadmap de construcción</h2>
+    <p class="sub">Migración sin apagar el sitio actual: el WordPress sigue vivo hasta que la nueva plataforma esté verificada con los 30,841 artículos.</p>
+    <div class="tl">
+      <div class="it"><div class="when">Semanas 1–3 · Fase 0</div><div class="what">Cimientos</div><p>Repositorio, CI/CD, base de datos, API base, autenticación, staging.</p></div>
+      <div class="it"><div class="when">Semanas 4–9 · Fase 1</div><div class="what">CMS + Frontend</div><p>Editor TipTap, workflow editorial, sitio público con diseño nuevo, sitemaps y schema.</p></div>
+      <div class="it"><div class="when">Semanas 10–13 · Fase 2</div><div class="what">Migración completa</div><p>ETL sobre la API de WP: 30,841 notas, 13,913 medios, consolidación de tags, verificación con crawler comparativo.</p></div>
+      <div class="it"><div class="when">Semanas 14–15 · Fase 3</div><div class="what">Corte controlado</div><p>Redirects residuales, cambio de DNS, monitoreo SEO diario, plan de rollback. <b>MVP transitable.</b></p></div>
+      <div class="it"><div class="when">Semanas 16–20 · Fase 4</div><div class="what">PWA de reportero</div><p>Captura móvil, modo offline, flujo de revisión desde el celular.</p></div>
+      <div class="it"><div class="when">Semanas 21–24 · Fase 5</div><div class="what">En vivo</div><p>MediaMTX, simulcast a redes, sección En Vivo con sello de Google, clips verticales.</p></div>
+      <div class="it"><div class="when">Semanas 25–28 · Fase 6</div><div class="what">Distribución y audiencia</div><p>Auto-posteo a 4 redes, Web Push propio, newsletter, canal WhatsApp.</p></div>
+      <div class="it"><div class="when">Semanas 29+ · Fase 7</div><div class="what">Monetización</div><p>Inventario de pauta propio, preroll en lives, contenido patrocinado.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- INVERSIÓN -->
+<section>
+  <div class="wrap">
+    <div class="kicker">06 — La inversión</div>
+    <h2>Costo de desarrollo y mantenimiento</h2>
+    <p class="sub">Precios por fase, alineados al roadmap — cada etapa se puede contratar por separado y el medio decide cuándo avanzar a la siguiente.</p>
+
+    <h3 style="margin-top:34px;color:var(--acc)">Desarrollo</h3>
+    <div class="prices">
+      <div class="price hl">
+        <div class="ph">Fases 0–3 · MVP</div>
+        <div class="amt">$290,000–340,000 <small>MXN</small></div>
+        <div class="per">~15 semanas · pago 30/40/30 por hitos</div>
+        <ul>
+          <li>Sitio público completo (frontend + CMS editorial)</li>
+          <li>Migración verificada: 30,841 notas, 13,913 medios</li>
+          <li>SEO preservado: URLs idénticas, sitemaps, schema</li>
+          <li>Auth, roles editoriales, analytics propio</li>
+          <li>Corte de producción con plan de rollback</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="ph">Fase 4 · PWA Reportero</div>
+        <div class="amt">$95,000–110,000 <small>MXN</small></div>
+        <div class="per">~5 semanas</div>
+        <ul>
+          <li>App instalable: nota + foto/video desde cámara</li>
+          <li>Borradores offline, subida resumible</li>
+          <li>Flujo de revisión móvil y geolocalización</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="ph">Fase 5 · En Vivo</div>
+        <div class="amt">$75,000–85,000 <small>MXN</small></div>
+        <div class="per">~4 semanas</div>
+        <ul>
+          <li>Servidor de streaming propio (MediaMTX)</li>
+          <li>Simulcast a YouTube / Facebook / TikTok</li>
+          <li>Sección En Vivo con sello de Google + clips verticales</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="ph">Fases 6–7 · Distribución + Monetización</div>
+        <div class="amt">$95,000–115,000 <small>MXN</small></div>
+        <div class="per">~7 semanas</div>
+        <ul>
+          <li>Auto-posteo a Meta / X / TikTok / YouTube</li>
+          <li>Web Push propio + newsletter + canal WhatsApp</li>
+          <li>Inventario de pauta y contenido patrocinado</li>
+        </ul>
+      </div>
+    </div>
+    <p class="sub" style="margin-top:16px"><b>Plataforma completa:</b> $555,000–650,000 MXN + IVA · <b>MVP transitable:</b> desde $290,000 MXN.</p>
+
+    <h3 style="margin-top:40px;color:var(--acc)">Operación mensual</h3>
+    <div class="prices" style="grid-template-columns:repeat(auto-fit,minmax(280px,1fr))">
+      <div class="price">
+        <div class="ph">Infraestructura · propiedad del medio</div>
+        <div class="amt">$0–1,600 <small>MXN/mes</small></div>
+        <ul>
+          <li>Corre sobre el servidor que el medio ya tiene — $0 adicional si aguanta la carga</li>
+          <li>Si hace falta VPS dedicado: cuenta a nombre del medio, jamás de OLMECA CODE</li>
+          <li>Cloudflare (CDN + WAF) plan gratuito + backups off-site</li>
+        </ul>
+      </div>
+      <div class="price">
+        <div class="ph">Soporte y evolución · OLMECA CODE</div>
+        <div class="amt">$9,000–14,000 <small>MXN/mes</small></div>
+        <ul>
+          <li>Monitoreo, parches de seguridad, backups verificados</li>
+          <li>Mejoras menores continuas (~20 h/mes incluidas)</li>
+          <li>SLA: incidencia crítica atendida en &lt;24 h</li>
+          <li>Sin retainer: bolsa de horas a $450 MXN/h</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="terms">
+      <div class="term"><b>Forma de pago</b>30% anticipo · 40% en hitos intermedios · 30% contra entrega verificada</div>
+      <div class="term"><b>Garantía</b>90 días de corrección de defectos post-lanzamiento sin costo</div>
+      <div class="term"><b>Propiedad</b>El código fuente, los datos y la infraestructura son 100% del medio desde el día uno</div>
+      <div class="term"><b>Vigencia</b>Estimado válido 30 días; alcance final se fija tras el sprint de descubrimiento</div>
+    </div>
+  </div>
+</section>
+
+<!-- RESPUESTAS CLAVE -->
+<section>
+  <div class="wrap">
+    <div class="kicker">07 — Respuestas clave</div>
+    <h2>Lo que todo director pregunta antes de firmar</h2>
+
+    <h3 style="margin-top:34px;color:var(--acc)">¿Hay precedentes? Medios que construyeron su propia plataforma</h3>
+    <div class="grid">
+      <div class="case">
+        <div class="org">The Washington Post</div>
+        <div class="prod">Arc Publishing</div>
+        <p>Dejó los CMS comerciales y construyó su propia plataforma editorial. Funcionó tan bien que hoy la licencia a cientos de medios en el mundo.</p>
+        <div class="res">→ Su herramienta interna se convirtió en línea de negocio</div>
+      </div>
+      <div class="case">
+        <div class="org">The New York Times</div>
+        <div class="prod">Scoop CMS</div>
+        <p>Opera con un sistema editorial 100% propio, optimizado para velocidad y publicación multiplataforma. Referencia mundial en rendimiento web.</p>
+        <div class="res">→ Control total = control del negocio</div>
+      </div>
+      <div class="case">
+        <div class="org">Vox Media</div>
+        <div class="prod">Chorus</div>
+        <p>CMS propio que alimenta The Verge, Vox y New York Magazine; llegó a licenciarse a otras editoriales.</p>
+        <div class="res">→ La plataforma propia habilita formatos que WP no permite</div>
+      </div>
+      <div class="case">
+        <div class="org">The Guardian / RTÉ</div>
+        <div class="prod">Composer · MoJo</div>
+        <p>The Guardian construyó editor y analytics propios. RTÉ (Irlanda) fue pionera mundial en Mobile Journalism: sus reporteros publican y transmiten solo con el celular.</p>
+        <div class="res">→ Exactamente el modelo MoJo que proponemos</div>
+      </div>
+    </div>
+    <div class="note" style="margin-top:18px">En México la mayoría de los medios regionales sigue en WordPress — quien se mueva primero con publicación móvil + en vivo propio gana la ventana de Discover y video local.</div>
+
+    <h3 style="margin-top:44px;color:var(--acc)">¿Cómo se recupera la inversión?</h3>
+    <div class="roi">
+      Con inventario publicitario propio (display + pauta en lives + contenido patrocinado), un medio con <b>500,000–1,000,000 sesiones/mes</b> a un RPM ilustrativo de <b>$80–150 MXN</b> puede generar <b>$40,000–150,000 MXN mensuales</b> → el MVP se paga solo en <b>12–18 meses</b>, y el activo (plataforma + audiencia propia) queda.
+      <small>Cifras ilustrativas basadas en RPMs típicos de display en México; el retorno real dependerá del tráfico y la fuerza comercial del medio.</small>
+    </div>
+
+    <h3 style="margin-top:44px;color:var(--acc)">¿Y si CODE desaparece? Continuidad garantizada</h3>
+    <div class="grid" style="grid-template-columns:repeat(auto-fit,minmax(300px,1fr))">
+      <div class="card"><h3>Propiedad total desde el día 1</h3><p>Repositorio de código, base de datos e infraestructura a nombre del medio — no de nosotros.</p></div>
+      <div class="card"><h3>Stack estándar, no exótico</h3><p>Astro + Node + PostgreSQL: cualquier equipo de desarrollo puede mantenerlo. No dependen de CODE, dependen de tecnologías con millones de devs en el mundo.</p></div>
+      <div class="card"><h3>Documentación + capacitación</h3><p>Manual técnico, manual editorial y 2 sesiones de capacitación a la redacción incluidas en la entrega.</p></div>
+      <div class="card"><h3>Plan de traspaso</h3><p>Entrega documentada a un equipo interno u otro proveedor en cualquier momento, sin penalización.</p></div>
+    </div>
+
+    <h3 style="margin-top:44px;color:var(--acc)">Implementación, operación y mantenimiento</h3>
+    <div class="table" style="grid-template-columns:1fr 1.6fr">
+      <div class="h">Aspecto</div><div class="h next">Cómo funciona</div>
+      <div class="dim">Implementación</div><div class="next"><span class="v"></span>Por fases (roadmap). El WordPress actual sigue vivo hasta que la nueva plataforma esté verificada con los 30,841 artículos. Corte con plan de rollback.</div>
+      <div class="dim">Operación diaria</div><div class="next"><span class="v"></span>La redacción solo usa el CMS y la PWA — cero necesidad de personal de TI interno. El medio opera contenido; nosotros operamos la máquina.</div>
+      <div class="dim">Mantenimiento</div><div class="next"><span class="v"></span>Retainer mensual: monitoreo 24/7, parches de seguridad, backups verificados diarios con restauración probada, mejoras continuas.</div>
+      <div class="dim">Actualizaciones</div><div class="next"><span class="v"></span>Releases semanales programados; nuevas funciones sin tumbar el sitio (deploys con rollback inmediato).</div>
+      <div class="dim">Soporte</div><div class="next"><span class="v"></span>Canal directo con el equipo (WhatsApp/correo). Incidencia crítica &lt;24 h; reporte mensual de salud de la plataforma.</div>
+      <div class="dim">Datos</div><div class="next"><span class="v"></span>Exportación completa en cualquier momento (JSON/Markdown). El archivo de 7 años del medio nunca queda secuestrado.</div>
+    </div>
+  </div>
+</section>
+
+<!-- KPIs + CTA -->
+<section style="border-bottom:none">
+  <div class="wrap">
+    <div class="kicker">08 — Cómo medimos el éxito</div>
+    <h2>KPIs del proyecto</h2>
+    <div class="kpis">
+      <div class="kpi"><b>Tráfico desde Google Discover</b><span>Clics e impresiones en Search Console — hoy en cero potencial</span></div>
+      <div class="kpi"><b>% notas publicadas desde móvil</b><span>Meta: &gt;50% en los primeros 3 meses del piloto</span></div>
+      <div class="kpi"><b>Tiempo nota→publicación</b><span>De ~30 min (vía WhatsApp+editor) a &lt;2 min</span></div>
+      <div class="kpi"><b>Espectadores en lives</b><span>Concurrentes + vistas del archivo en YouTube</span></div>
+      <div class="kpi"><b>Audiencia propia</b><span>Suscriptores push + WhatsApp + newsletter</span></div>
+      <div class="kpi"><b>RPM publicitario</b><span>Ingresos por cada 1,000 sesiones con inventario propio</span></div>
+    </div>
+
+    <div class="cta" style="margin-top:56px">
+      <h2>Siguiente paso</h2>
+      <p class="sub" style="margin:10px auto 0">Proponemos un primer sprint de 3 semanas para validar la pieza más riesgosa — la migración — antes de comprometer el proyecto completo.</p>
+      <div class="steps">
+        <div class="step"><b>1 · Prueba de concepto</b>ETL de muestra con 500 notas reales en la nueva plataforma. URLs idénticas, verificadas.</div>
+        <div class="step"><b>2 · Decisión de marca</b>Definir edición única vs. QRoo/Tabasco para Google Publisher Center.</div>
+        <div class="step"><b>3 · Diseño del sitio</b>Mockup de portada y nota con el nuevo sistema visual.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <img src="logo-olmeca.png" alt="OLMECA CODE" class="logo sm">
+  <div style="color:var(--txt);font-weight:600;margin-bottom:6px">Desarrollado por OLMECA CODE · Equipo de ingeniería</div>
+  Propuesta técnica para <b>José Antenor Ancona, Director General — En Cambio Diario</b> · Octubre 2026<br>
+  Documentos complementarios: diagnostico-y-propuesta.md · plataforma-propia-arquitectura.md<br>
+  <span style="color:var(--acc);font-weight:700">Documento confidencial.</span> Su contenido es exclusivo para En Cambio Diario y no debe distribuirse a terceros.
+</footer>
+
+</body>
+</html>
